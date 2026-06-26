@@ -4,6 +4,12 @@ export interface Vector3Like {
   z: number
 }
 
+/**
+ * Render-agnostic transform used by the simulation.
+ *
+ * This deliberately mirrors the position/rotation/scale concepts used by
+ * Three.js without importing Three.js types into the engine core.
+ */
 export interface Transform {
   position: Vector3Like
   rotation: Vector3Like
