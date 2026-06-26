@@ -15,6 +15,7 @@
 
 - [游戏引擎设计文档](docs/engine-design.md)
 - [游戏引擎使用文档](docs/engine-usage.md)
+- [工业级 RTS 游戏引擎分析、对比与演进计划](docs/industrial-rts-engine-analysis.md)
 - [阶段设计与计划](docs/superpowers/)
 
 ## 快速开始
