@@ -18,7 +18,10 @@ export class TankControlSystem implements System {
   constructor(private readonly commands: CommandQueue) {}
 
   update(world: World, context: TickContext): void {
-    for (const command of this.commands.dequeueForTick(context.tick)) {
+    for (const command of this.commands.dequeueForTick(
+      context.tick,
+      (queuedCommand) => queuedCommand.type === 'tank.move' || queuedCommand.type === 'tank.aim',
+    )) {
       const entity = world.get(command.actorId)
       const tank = getTrait<TankTrait>(entity, 'tank')
       if (!tank) {

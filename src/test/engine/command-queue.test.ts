@@ -19,4 +19,15 @@ describe('CommandQueue', () => {
     expect(queue.dequeueForTick(2).map((command) => command.id)).toEqual(['now'])
     expect(queue.dequeueForTick(3).map((command) => command.id)).toEqual(['late'])
   })
+
+  test('keeps ready commands that do not match the dequeue predicate', () => {
+    const queue = new CommandQueue()
+    queue.enqueue({ id: 'move', actorId: 'tank-1', type: 'tank.move', payload: {} })
+    queue.enqueue({ id: 'fire', actorId: 'tank-1', type: 'tank.fire', payload: {} })
+
+    expect(queue.dequeueForTick(1, (command) => command.type === 'tank.fire').map((command) => command.id)).toEqual([
+      'fire',
+    ])
+    expect(queue.dequeueForTick(1).map((command) => command.id)).toEqual(['move'])
+  })
 })

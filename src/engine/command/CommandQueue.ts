@@ -14,15 +14,16 @@ export class CommandQueue {
   }
 
   /**
-   * 取出当前 tick 可执行的命令，并保留未来 tick 的命令。
-   * 同一 tick 内保持入队顺序，避免同帧命令的执行结果不可预测。
+   * 取出当前 tick 可执行且满足条件的命令，并保留未来 tick 或不满足条件的命令。
+   * predicate 让多个系统可以共享同一个队列，各自只消费自己认识的命令类型。
    */
-  dequeueForTick(currentTick: number): Command[] {
+  dequeueForTick(currentTick: number, predicate: (command: Command) => boolean = () => true): Command[] {
     const ready: Command[] = []
     const pending: Command[] = []
 
     for (const command of this.commands) {
-      if (command.tick === undefined || command.tick <= currentTick) {
+      const commandIsReady = command.tick === undefined || command.tick <= currentTick
+      if (commandIsReady && predicate(command)) {
         ready.push(command)
       } else {
         pending.push(command)
