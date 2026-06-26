@@ -2,7 +2,7 @@
 
 ## 1. 背景与目标
 
-本方案设计一个基于 `Vue 3 + Vite + TypeScript + Three.js` 的 Web 3D 游戏引擎框架。长期目标是具备复刻红色警戒类 RTS 游戏的能力，但第一阶段不直接复刻红警，而是先实现一个可运行、可验证、可扩展的 `3D 坦克大战 MVP+`。
+本方案设计一个基于 `Vue 3 + Element Plus + Vite + TypeScript + Three.js` 的 Web 3D 游戏引擎框架。长期目标是具备复刻红色警戒类 RTS 游戏的能力，但第一阶段不直接复刻红警，而是先实现一个可运行、可验证、可扩展的 `3D 坦克大战 MVP+`。
 
 第一阶段 MVP+ 必须支持：
 
@@ -18,6 +18,7 @@
 ## 2. 技术栈
 
 - 前端框架：`Vue 3`
+- UI 组件库：`Element Plus`
 - 构建工具：`Vite`
 - 语言：`TypeScript`
 - 3D 渲染：`Three.js`
@@ -557,6 +558,7 @@ Vue 负责：
 - 编辑器属性面板。
 - 调试面板。
 - 文件导入导出操作。
+- 使用 Element Plus 构建按钮、菜单、表单、表格、弹窗、抽屉、标签页、滑块、开关和通知反馈。
 
 引擎负责：
 
@@ -646,7 +648,7 @@ Vue 负责：
 核心引擎和玩法逻辑采用测试先行：
 
 - 新增 `World`、`CommandQueue`、`LevelLoader`、`MapValidator`、`BotAiSystem`、`CollisionSystem` 等核心模块前，先写失败测试。
-- UI 视觉细节可以不强制 TDD，但必须有浏览器冒烟测试或手工验证记录。
+- UI 视觉细节可以不强制 TDD，但 Element Plus 页面流程必须有浏览器冒烟测试或手工验证记录。
 - 修复任何玩法 bug 前，先补一个能复现问题的失败测试。
 - 配置文件格式变化必须先更新 schema/validator 测试。
 
@@ -746,9 +748,9 @@ MVP+ 阶段不追求极限性能，但必须记录基线：
 
 产出：
 
-- Vue 3 + Vite + TypeScript 工程。
+- Vue 3 + Element Plus + Vite + TypeScript 工程。
 - Three.js 接入。
-- 基础页面：主菜单、游戏页、编辑器页。
+- 基础页面：主菜单、游戏页、编辑器页，并使用 Element Plus 搭建基础导航和页面控件。
 - 基础 lint/typecheck/build 脚本。
 
 验收：

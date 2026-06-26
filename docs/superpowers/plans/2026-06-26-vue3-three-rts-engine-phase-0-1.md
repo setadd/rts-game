@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the project foundation and minimum engine skeleton for a Vue 3 + Vite + Three.js RTS-capable engine.
+**Goal:** Build the project foundation and minimum engine skeleton for a Vue 3 + Element Plus + Vite + Three.js RTS-capable engine.
 
 **Architecture:** Create a Vue shell with a full-viewport game canvas, then implement a testable core engine that has no dependency on Three.js. Three.js lives behind an adapter layer that renders Entity state from `World`.
 
-**Tech Stack:** Vue 3, Vite, TypeScript, Three.js, Pinia, Vitest, vue-tsc.
+**Tech Stack:** Vue 3, Element Plus, Vite, TypeScript, Three.js, Pinia, Vitest, vue-tsc.
 
 ---
 
@@ -96,6 +96,7 @@ Create `package.json`:
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
+    "element-plus": "^2.9.1",
     "pinia": "^2.3.0",
     "three": "^0.171.0",
     "vue": "^3.5.13",
@@ -242,11 +243,13 @@ Create `src/main.ts`:
 ```ts
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import App from './app/App.vue'
 import { router } from './app/router'
 import './app/styles/base.css'
 
-createApp(App).use(createPinia()).use(router).mount('#app')
+createApp(App).use(createPinia()).use(router).use(ElementPlus).mount('#app')
 ```
 
 - [ ] **Step 2: Create router**
@@ -283,9 +286,15 @@ import { RouterLink, RouterView } from 'vue-router'
     <header class="top-bar">
       <strong>RTS Engine</strong>
       <nav>
-        <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/game">游戏</RouterLink>
-        <RouterLink to="/editor">编辑器</RouterLink>
+        <RouterLink to="/">
+          <el-button text>首页</el-button>
+        </RouterLink>
+        <RouterLink to="/game">
+          <el-button text>游戏</el-button>
+        </RouterLink>
+        <RouterLink to="/editor">
+          <el-button text>编辑器</el-button>
+        </RouterLink>
       </nav>
     </header>
     <main class="app-main">
@@ -347,15 +356,13 @@ a {
 }
 
 .top-bar a {
-  padding: 6px 8px;
   border-radius: 6px;
   text-decoration: none;
-  color: #9fb0c0;
 }
 
-.top-bar a.router-link-active {
-  color: #ffffff;
+.top-bar a.router-link-active .el-button {
   background: #24313d;
+  color: #ffffff;
 }
 
 .app-main {
@@ -376,8 +383,14 @@ Create `src/app/views/HomeView.vue`:
 ```vue
 <template>
   <section class="page">
-    <h1>Vue3 Three RTS Engine</h1>
-    <p>第一阶段目标：完成可测试的引擎骨架和 Three.js 渲染适配层。</p>
+    <el-space direction="vertical" alignment="flex-start" :size="16">
+      <h1>Vue3 Three RTS Engine</h1>
+      <p>第一阶段目标：完成可测试的引擎骨架和 Three.js 渲染适配层。</p>
+      <el-space>
+        <el-button type="primary" tag="a" href="#/game">进入游戏</el-button>
+        <el-button tag="a" href="#/editor">地图编辑器</el-button>
+      </el-space>
+    </el-space>
   </section>
 </template>
 ```
@@ -399,8 +412,9 @@ Create `src/app/views/EditorView.vue`:
 ```vue
 <template>
   <section class="page">
-    <h1>地图编辑器</h1>
-    <p>编辑器将在后续计划中实现。</p>
+    <el-empty description="地图编辑器将在后续计划中实现">
+      <el-button type="primary" disabled>新建地图</el-button>
+    </el-empty>
   </section>
 </template>
 ```
