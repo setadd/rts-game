@@ -2,11 +2,10 @@ import type { TickContext } from '@/engine/core/TickContext'
 import type { Entity } from './Entity'
 
 /**
- * Traits are small capabilities attached to an Entity.
+ * Trait 表示挂在 Entity 上的小能力。
  *
- * Examples planned for later phases include health, weapons, collision, teams,
- * bot control, and render metadata. A trait should hold local state or hooks;
- * cross-entity behavior belongs in a System.
+ * 后续阶段会加入生命、武器、碰撞、阵营、AI 控制和渲染元数据等 Trait。
+ * Trait 适合保存单实体局部状态或钩子；跨实体行为应放在 System 中。
  */
 export interface Trait {
   name: string

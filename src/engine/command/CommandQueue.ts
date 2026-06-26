@@ -1,9 +1,10 @@
 import type { Command } from './Command'
 
 /**
- * Stores commands until the simulation reaches the tick where they are allowed
- * to run. Keeping this queue independent from input devices and systems lets
- * player input, bot AI, scripted tests, and future network input share one path.
+ * 命令队列负责暂存命令，直到模拟推进到命令允许执行的 tick。
+ *
+ * 队列不绑定键盘、鼠标、AI 或网络来源，目的是让玩家输入、机器人 AI、脚本化测试
+ * 和未来的联机输入都走同一条处理路径。
  */
 export class CommandQueue {
   private readonly commands: Command[] = []
@@ -13,8 +14,8 @@ export class CommandQueue {
   }
 
   /**
-   * Returns commands ready for the current fixed tick and keeps future commands
-   * pending. Insertion order is preserved so same-tick commands stay predictable.
+   * 取出当前 tick 可执行的命令，并保留未来 tick 的命令。
+   * 同一 tick 内保持入队顺序，避免同帧命令的执行结果不可预测。
    */
   dequeueForTick(currentTick: number): Command[] {
     const ready: Command[] = []

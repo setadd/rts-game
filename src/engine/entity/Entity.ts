@@ -3,11 +3,10 @@ import type { Trait } from './Trait'
 import type { EntityId } from './EntityId'
 
 /**
- * Minimal simulation object.
+ * 最小模拟对象。
  *
- * Entity intentionally contains only identity, type, transform, and traits.
- * Game-specific behavior belongs in traits and systems so tank battles can later
- * evolve into RTS units without changing the base object shape.
+ * Entity 只保留身份、类型、Transform 和 Trait。具体游戏行为放到 Trait 和 System 中，
+ * 这样坦克大战后续演进为 RTS 单位时，不需要改动基础对象结构。
  */
 export interface Entity {
   id: EntityId

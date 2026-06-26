@@ -1,11 +1,10 @@
 import type { EntityId } from '@/engine/entity/EntityId'
 
 /**
- * A command is an intent, not an immediate state mutation.
+ * Command 表示“意图”，不是立即修改状态的操作。
  *
- * Player input, AI decisions, replay data, and future network lockstep packets
- * should all enter the simulation through commands. This keeps the simulation
- * deterministic and makes later RTS-style order handling much easier to test.
+ * 玩家输入、AI 决策、回放数据、未来的联机锁步包都应该通过命令进入模拟层。
+ * 这样能保持模拟逻辑可预测，也方便后续扩展 RTS 风格的单位指令系统。
  */
 export interface Command<TPayload = unknown> {
   id: string
@@ -13,8 +12,8 @@ export interface Command<TPayload = unknown> {
   type: string
   payload: TPayload
   /**
-   * Optional fixed simulation tick for delayed or lockstep-synchronized commands.
-   * Commands without a tick are consumed by the next update.
+   * 可选的固定模拟 tick，用于延迟命令或未来的锁步同步命令。
+   * 没有 tick 的命令会在下一次更新时被消费。
    */
   tick?: number
 }

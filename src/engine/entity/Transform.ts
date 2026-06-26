@@ -5,10 +5,10 @@ export interface Vector3Like {
 }
 
 /**
- * Render-agnostic transform used by the simulation.
+ * 模拟层使用的渲染无关 Transform。
  *
- * This deliberately mirrors the position/rotation/scale concepts used by
- * Three.js without importing Three.js types into the engine core.
+ * 这里刻意保持 position/rotation/scale 与 Three.js 概念相近，但不把 Three.js 类型
+ * 引入核心引擎，避免逻辑层和渲染层耦合。
  */
 export interface Transform {
   position: Vector3Like
