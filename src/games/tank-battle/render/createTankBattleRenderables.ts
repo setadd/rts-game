@@ -37,15 +37,19 @@ function createTankObject(): Object3D {
 }
 
 function createTargetObject(): Object3D {
+  const group = new Group()
   const target = new Mesh(new BoxGeometry(1.4, 0.8, 1.4), targetMaterial)
   target.position.y = 0.4
-  return target
+  group.add(target)
+  return group
 }
 
 function createProjectileObject(): Object3D {
+  const group = new Group()
   const projectile = new Mesh(new SphereGeometry(0.18, 16, 12), projectileMaterial)
   projectile.position.y = 0.45
-  return projectile
+  group.add(projectile)
+  return group
 }
 
 /**
