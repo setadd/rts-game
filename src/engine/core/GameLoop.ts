@@ -33,8 +33,10 @@ export class GameLoop {
 
     // 注入调度器可以让 GameLoop 在没有真实浏览器的 Node 测试里运行，
     // 也为后续逐帧回放和确定性调试预留入口。
-    this.requestFrame = options.requestFrame ?? requestAnimationFrame
-    this.cancelFrame = options.cancelFrame ?? cancelAnimationFrame
+    // 默认浏览器调度器必须绑定到 globalThis/window；否则原生 requestAnimationFrame 会因为调用者错误
+    // 在真实页面里抛出 Illegal invocation。测试注入的调度器仍然保持原样，方便精确控制 tick。
+    this.requestFrame = options.requestFrame ?? globalThis.requestAnimationFrame.bind(globalThis)
+    this.cancelFrame = options.cancelFrame ?? globalThis.cancelAnimationFrame.bind(globalThis)
   }
 
   start(): void {
